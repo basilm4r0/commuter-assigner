@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#pragma clang diagnostic ignored "-Wformat-security"
 
 //define passenger linked list node data structure
 struct Passenger {
@@ -71,7 +70,7 @@ void InsertPassenger(char pid[20], char date[20], char time[20], char origin[20]
 void PrintPassengers(struct Passenger* L) {
 	struct Passenger* P = L;
 	if (IsEmptyP(L))
-		printf("List is empty!");
+		printf("List is empty!\n");
 	else
 		do{
 			P=P->next;
@@ -129,7 +128,7 @@ struct Bus {
 	char destination[20];
 	int ticketprice;
 	int capacity;
-	struct Passenger* Passengers;
+	struct Passenger* passengers;
 	struct Bus* next;
 };
 
@@ -140,6 +139,7 @@ void DeleteListB(struct Bus* L){
 	L->next = NULL;
 	while(P != NULL){
 		temp = P->next;
+		DeleteListP(P->passengers);
 		free(P);
 		P = temp;
 	}
@@ -188,6 +188,7 @@ void InsertBus(char bid[20], char date[20], char time[20], char origin[20], char
 	temp->ticketprice = ticketprice;
 	temp->capacity = capacity;
 	temp->next = P->next;
+	temp->passengers = MakeEmptyP(NULL);
 	P->next = temp;
 
 }
@@ -200,9 +201,23 @@ void PrintBuses(struct Bus* L) {
 	else
 		do{
 			P=P->next;
-			printf("Bus ID: %s, Trip Date: %s, Trip Time: %s, Origin: %s, Destination: %s\n, Ticket Price: %d, Capacity: %d\n", P->bid, P->date, P->time, P->origin, P->destination, P->ticketprice, P->capacity);
+			printf("Bus ID: %s, Trip Date: %s, Trip Time: %s, Origin: %s, Destination: %s, Ticket Price: %d, Capacity: %d\n", P->bid, P->date, P->time, P->origin, P->destination, P->ticketprice, P->capacity);
 		} while (!IsLastB(L, P));
 }
+
+void PrintBusesPassengers(struct Bus* L) {
+	struct Bus* P;
+	P = L;
+	if (IsEmptyB(L))
+		printf("List is empty!\n");
+	else
+		do {
+			P = P->next;
+			printf("Bus ID: %s, Trip Date: %s, Trip Time: %s, Origin: %s, Destination: %s, Ticket Price: %d, Capacity: %d\nPassengers:\n", P->bid, P->date, P->time, P->origin, P->destination, P->ticketprice, P->capacity);
+			PrintPassengers(P->passengers);
+		} while (!IsLastB(L, P));
+}
+
 
 struct Bus* FindLastB(struct Bus* L) {
 	struct Bus* P;
@@ -213,10 +228,10 @@ struct Bus* FindLastB(struct Bus* L) {
 	return P;
 }
 
-struct Bus* FindBus(char bid[20], struct Bus* L) {
+struct Bus* FindBus(char date[20], char origin[20], char destination[20], struct Bus* L) {
 	struct Bus* P;
 	P = L->next;
-	while (P != NULL && strcmp(bid, P->bid) != 0)
+	while (P != NULL && strcmp(date, P->date) != 0 && strcmp(origin, P->origin) != 0 && strcmp(destination, P->destination) != 0)
 		P=P->next;
 	return P;
 
@@ -388,6 +403,7 @@ int main() {
 
 		InsertBus(id, date, time, origin, destination, ticketprice, capacity, FindLastB(busList), busList);//inserting bus node into linked list
 	}
+	InsertBus("No match", "n/a", "n/a", "n/a", "n/a", 0, 0, FindLastB(busList), busList);//inserting bus node into linked list
 	PrintBuses(busList);
 	fclose(inputB);
 
@@ -437,7 +453,7 @@ int main() {
 		temps = fgetc(inputs);
 		i = 0;
 		strncpy(id, s, 20);
-		printf("%s\t", id);
+		//printf("%s\t", id);
 		memset(s, 0, strlen(s));
 
 		while (temps != '#' && temps != EOF && i < 19) {//2: trip date
@@ -449,7 +465,7 @@ int main() {
 		}
 		temps = fgetc(inputs);
 		i = 0;
-	strncpy(date, s, 20);
+		strncpy(date, s, 20);
 		memset(s, 0, strlen(s));
 
 		while (temps != '#' && temps != EOF && i < 19) {//3: trip time
@@ -497,4 +513,44 @@ int main() {
 	PrintPassengers(passengerList);
 	fclose(inputs);
 
+	struct Passenger* currentPassenger = passengerList->next;
+	struct Bus* currentBus = busList->next;
+	memset(time, 0, sizeof(time));
+	int hour;
+	int minute;
+	int passengertime;
+	int bustime;
+	char delimitor[2] = ":";
+	while (currentPassenger != NULL) {
+		strncpy(time, currentPassenger->time, 19);
+		hour = atoi(strtok(time, delimitor));
+		minute = atoi(strtok(NULL, delimitor));
+		passengertime = minute + hour * 60;
+		memset(time, 0, sizeof(time));
+		if ((currentBus = FindBus(currentPassenger->date, currentPassenger->origin, currentPassenger->destination, busList)) != NULL) {
+			strncpy(time, currentBus->time, 19);
+			hour = atoi(strtok(time, delimitor));
+			minute = atoi(strtok(NULL, delimitor));
+			bustime = minute + hour * 60;
+			memset(time, 0, sizeof(time));
+			if (bustime >= passengertime && bustime <= (passengertime + 60) && currentBus->capacity != 0) {
+				InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, FindLastP(currentBus->passengers), currentBus->passengers);
+				currentBus->capacity--;
+			}
+			else {
+				InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, FindLastP((FindLastB(busList))->passengers), currentBus->passengers);
+			}
+		}
+		else {
+			InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, FindLastP((FindLastB(busList))->passengers), currentBus->passengers);
+		}
+		currentPassenger = currentPassenger->next;
+
+	}
+
+	PrintBusesPassengers(busList);
+	DeleteListP(passengerList);
+	DeleteListB(busList);
+	free(passengerList);
+	free(busList);
 }
