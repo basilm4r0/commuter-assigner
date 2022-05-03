@@ -403,7 +403,7 @@ int main() {
 
 		InsertBus(id, date, time, origin, destination, ticketprice, capacity, FindLastB(busList), busList);//inserting bus node into linked list
 	}
-	InsertBus("No match", "n/a", "n/a", "n/a", "n/a", 0, 0, FindLastB(busList), busList);//inserting bus node into linked list
+	InsertBus("No match\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 0, 0, FindLastB(busList), busList);//inserting bus node into linked list
 	PrintBuses(busList);
 	fclose(inputB);
 
