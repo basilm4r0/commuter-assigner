@@ -1,3 +1,4 @@
+// COMP2421 Project 1 by Basil Mari.	Student ID: 1191027.	Date: 5/5/2022
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +13,7 @@ struct Passenger {
 	struct Passenger* next;
 };
 
+//Deletes passenger linked list L from memory
 void DeleteListP(struct Passenger* L){
 	struct Passenger* P;
 	struct Passenger* temp;
@@ -27,6 +29,7 @@ void DeleteListP(struct Passenger* L){
 	}
 }
 
+//Finds the node previous to P in a passengers linked list with head L
 struct Passenger* FindPreviousP(struct Passenger* L, struct Passenger* P) {
 	struct Passenger* node;
 	node = L;
@@ -36,6 +39,7 @@ struct Passenger* FindPreviousP(struct Passenger* L, struct Passenger* P) {
 
 }
 
+//Deletes node P in passengers linked list with head L
 void DeletePassenger(struct Passenger* L, struct Passenger* P){
 	struct Passenger* node;
 	struct Passenger* previous;
@@ -49,6 +53,7 @@ void DeletePassenger(struct Passenger* L, struct Passenger* P){
 	free(node);
 }
 
+//Makes passengers linked list with head L empty
 struct Passenger* MakeEmptyP(struct Passenger* L) {
 
 	if (L != NULL)
@@ -65,14 +70,17 @@ struct Passenger* MakeEmptyP(struct Passenger* L) {
 	return L;
 }
 
+//Checks if passengers linked list L is empty
 int IsEmptyP(struct Passenger* L) {
 	return L->next == NULL;
 }
 
+//Checks if passenger node P is the last node in linked list L
 int IsLastP(struct Passenger* L, struct Passenger* P) {
 	return P->next == NULL;
 }
 
+//Inserts passenger with specified information in passenger linked list L
 void InsertPassenger(char pid[20], char date[20], char time[20], char origin[20], char destination[20], struct Passenger* L, struct Passenger* P) {
 
 	struct Passenger* temp;
@@ -92,6 +100,7 @@ void InsertPassenger(char pid[20], char date[20], char time[20], char origin[20]
 	P->next = temp;
 }
 
+//Prints passengers in linked list L along with their information
 void PrintPassengers(struct Passenger* L) {
 	struct Passenger* P = L;
 	if (IsEmptyP(L))
@@ -103,6 +112,7 @@ void PrintPassengers(struct Passenger* L) {
 		} while (!IsLastP(L, P));
 }
 
+//Finds last node in passenger linked list L
 struct Passenger* FindLastP(struct Passenger* L) {
 	struct Passenger* P;
 	P = L;
@@ -112,6 +122,7 @@ struct Passenger* FindLastP(struct Passenger* L) {
 	return P;
 }
 
+//Find passenger with matching ID in passenger linked list L
 struct Passenger* FindPassenger(char pid[20], struct Passenger* L) {
 	struct Passenger* P;
 	P = L->next;
@@ -120,6 +131,7 @@ struct Passenger* FindPassenger(char pid[20], struct Passenger* L) {
 	return P;
 }
 
+//define bus linked list node data structure
 struct Bus {
 	char bid[20];
 	char date[20];
@@ -132,6 +144,7 @@ struct Bus {
 	struct Bus* next;
 };
 
+//Finds the node previous to P in a Bus linked list with head L
 struct Bus* FindPreviousB(struct Bus* L, struct Bus* P) {
 	struct Bus* node;
 	node = L;
@@ -141,6 +154,7 @@ struct Bus* FindPreviousB(struct Bus* L, struct Bus* P) {
 
 }
 
+//Deletes Bus linked list L from memory
 void DeleteListB(struct Bus* L){
 	struct Bus* P;
 	struct Bus* temp;
@@ -157,6 +171,7 @@ void DeleteListB(struct Bus* L){
 	}
 }
 
+//Deletes node P in Bus linked list with head L
 void DeleteBus(struct Bus* L, struct Bus* P){
 	struct Bus* node;
 	struct Bus* previous;
@@ -171,6 +186,7 @@ void DeleteBus(struct Bus* L, struct Bus* P){
 	free(node);
 }
 
+//Makes passengers linked list with head L empty
 struct Bus* MakeEmptyB(struct Bus* L) {
 
 	if (L != NULL)
@@ -189,14 +205,17 @@ struct Bus* MakeEmptyB(struct Bus* L) {
 
 }
 
+//Checks if Bus linked list L is empty
 int IsEmptyB(struct Bus* L) {
 	return L->next == NULL;
 }
 
+//Checks if node P is the last node in Bus linked list L
 int IsLastB(struct Bus* H, struct Bus* P) {
 	return P->next == NULL;
 }
 
+//Inserts Bus with specified information in Bus linked list L
 void InsertBus(char bid[20], char date[20], char time[20], char origin[20], char destination[20], int ticketprice, int capacity, struct Bus* L, struct Bus* P) {
 
 	struct Bus* temp;
@@ -220,6 +239,7 @@ void InsertBus(char bid[20], char date[20], char time[20], char origin[20], char
 
 }
 
+//Prints Bus L from linked list along with its information
 void PrintBus(struct Bus* L) {
 	struct Bus* P;
 	P = L;
@@ -232,6 +252,7 @@ void PrintBus(struct Bus* L) {
 	}
 }
 
+//Prints all nodes in Bus linked list L along with their information
 void PrintBuses(struct Bus* L) {
 	struct Bus* P;
 	P = L;
@@ -244,6 +265,7 @@ void PrintBuses(struct Bus* L) {
 		} while (!IsLastB(L, P));
 }
 
+//Prints all nodes in Bus linked list L along with their information and passengers
 void PrintBusesPassengers(struct Bus* L) {
 	struct Bus* P;
 	P = L;
@@ -258,7 +280,7 @@ void PrintBusesPassengers(struct Bus* L) {
 		} while (!IsLastB(L, P));
 }
 
-
+//Finds last node in Bus linked list L
 struct Bus* FindLastB(struct Bus* L) {
 	struct Bus* P;
 	P = L;
@@ -268,6 +290,7 @@ struct Bus* FindLastB(struct Bus* L) {
 	return P;
 }
 
+//Finds bus with matching ID in bus linked list L
 struct Bus* FindBus(char bid[20], struct Bus* L) {
 	struct Bus* P;
 	P = L->next;
@@ -276,6 +299,7 @@ struct Bus* FindBus(char bid[20], struct Bus* L) {
 	return P;
 }
 
+//Finds bus with matching date, origin, and destinatino in bus linked list L
 struct Bus* MatchBus(char date[20], char origin[20], char destination[20], struct Bus* L) {
 	struct Bus* P;
 	P = L->next;
@@ -284,25 +308,15 @@ struct Bus* MatchBus(char date[20], char origin[20], char destination[20], struc
 	return P;
 }
 
-void ResetBusListPassengers(struct Bus* L) {
-	struct Bus* P;
-	P = L;
-	while(P != NULL){
-		P->passengers = MakeEmptyP(P->passengers);
-		P = P->next;
-	}
-	return;
-}
+void LoadBusFile(struct Bus*);	//Loads informatino in busses.txt into a bus linked list "busList"
+void LoadPassengerFile(struct Passenger*);	//Loads informatino in passengers.txt into passengers linked list "passengerList"
+void AssignPassengers(struct Bus*, struct Passenger*);	//Assigned passengers in passengerList to buses in busList
 
-void LoadBusFile(struct Bus*);
-void LoadPassengerFile(struct Passenger*);
-void AssignPassengers(struct Bus*, struct Passenger*);
-
+//Main body of program defines user inteface menu
 int main() {
 	int busesloaded = 0;
 	int passengersloaded = 0;
 	int passengersassigned = 0;
-	//int option;
 	int option;
 	char id[20];
 	char date[20];
@@ -310,28 +324,27 @@ int main() {
 	char origin[20];
 	char destination[20];
 	struct Bus* busList;
-	busList = MakeEmptyB(NULL);//creating head of the buses linked list
+	busList = MakeEmptyB(NULL);		//creating head of the buses linked list
 	struct Passenger* passengerList;
-	passengerList = MakeEmptyP(NULL);//creating head of the students linked list
+	passengerList = MakeEmptyP(NULL);	//creating head of the students linked list
 
-	printf("Enter a number to perform on of the following operations:\n1. Load the bus information file.\n2. Load the passenger information file.\n3. Assign passengers and print assignment information of all buses.\n4. Print the information for a specific bus along with its passengers.\n5. Print unmatched passengers.\n6. Add new passenger.\n7. Delete passenger.\n8. Delete bus.\n9. Exit Program.\n");
+	printf("Enter a number to perform one of the following operations:\n1. Load bus information from busses.txt.\n2. Load passenger information from passengers.txt.\n3. Assign passengers and print assignment information of all buses.\n4. Print the information for a specific bus along with its passengers.\n5. Print unmatched passengers.\n6. Add new passenger.\n7. Delete passenger.\n8. Delete bus.\n9. Exit Program.\n");
 	do {
-		printf("Option: ");
+		printf("Option: ");		//Printing prompt and reading user input
 		scanf("%d", &option);
-		//option = optionchar - '0';
 		switch (option) {
 
-			case (1):
+			case (1):			//Option 1: Load bus information from busses.txt
 				LoadBusFile(busList);
 				busesloaded = 1;
 				break;
 
-			case (2):
+			case (2):			//Option 2: Load passenger information from passengers.txt
 				LoadPassengerFile(passengerList);
 				passengersloaded = 1;
 				break;
 
-			case (3):
+			case (3):			//Option 3: Assign loaded passengers to loaded buses and print assignment information
 				if (busesloaded == 1 && passengersloaded == 1) {
 					AssignPassengers(busList, passengerList);
 					passengersassigned = 1;
@@ -346,7 +359,7 @@ int main() {
 					printf("Passengers and buses are not loaded! Load passengers and buses from passengers.txt and busses.txt with options 1 and 2, and try again.\n");
 				break;
 
-			case (4):
+			case (4):			//Option 4: Print information of specified bus along with its passengers
 				if (passengersassigned != 1)
 					printf("Most recent passenger list hasn't been assigned to buses. You may want to assign passengers with option 3 before printing the passengers assigned to this bus.\n");
 				printf("Enter the bus ID of the bus you wish to print the information of: ");
@@ -354,11 +367,11 @@ int main() {
 				PrintBus(FindBus(id, busList));
 				break;
 
-			case (5):
+			case (5):			// Option 5: Print unmatched passengers and their information
 				PrintBus(FindLastB(busList));
 				break;
 
-			case (6):
+			case (6):			// Option 6: Add passenger to passengerList
 				printf("Enter the information of the passenger to be added.\nPassenger ID: ");
 				scanf("%19s", id);
 				printf("Trip date: ");
@@ -371,45 +384,43 @@ int main() {
 				scanf("%19s", destination);
 				InsertPassenger(id, date, time, origin, destination, passengerList, passengerList);
 				passengersassigned = 0;
-				//ResetBusListPassengers(busList);
 				busList = MakeEmptyB(busList);
 				LoadBusFile(busList);
 				break;
 
-			case (7):
+			case (7):			// Option 7: Delete passenger from passengerList
 				printf("Enter the ID of the passenger to be deleted: ");
 				scanf("%19s", id);
 				DeletePassenger(passengerList, FindPassenger(id, passengerList));
 				passengersassigned = 0;
-				//ResetBusListPassengers(busList);
 				busList = MakeEmptyB(busList);
 				LoadBusFile(busList);
 				break;
 
-			case (8):
+			case (8):			// Option 8: Delete bus from busList
 				printf("Enter the ID of the bus to be deleted: ");
 				scanf("%19s", id);
 				passengersassigned = 0;
-				//ResetBusListPassengers(busList);
 				busList = MakeEmptyB(busList);
 				LoadBusFile(busList);
 				DeleteBus(busList, FindBus(id, busList));
 				break;
 
-			case (9):
+			case (9):			// Option 9: Exit program
 				printf("Exiting program...\n");
 				break;
 
-			default:
+			default:			// Default option: print error message and prompt user for valid input
 				printf("Option invalid. Please enter a valid option.\n");
 				break;
 		}
 	} while(option != 9);
 
-	DeleteListP(passengerList);
-	DeleteListB(busList);
+	DeleteListP(passengerList);		// Free passenger linked list
+	DeleteListB(busList);			// Free bus linked list
 }
 
+// Load buses from busses.txt into busList
 void LoadBusFile(struct Bus* busList) {
 	FILE* input;
 	input=fopen("busses.txt", "r");
@@ -441,7 +452,7 @@ void LoadBusFile(struct Bus* busList) {
 	int capacity;
 
 	char s[20];
-	memset(s, 0, sizeof(s));//resetting the string: solved the problem of printing strange symbols after reading
+	memset(s, 0, sizeof(s));	//resetting the string
 	int i=0;
 	char temp=fgetc(inputB);
 
@@ -457,7 +468,6 @@ void LoadBusFile(struct Bus* busList) {
 		temp = fgetc(inputB);
 		i = 0;
 		strncpy(id, s, 20);
-		//printf("%s\t", id);
 		memset(s, 0, strlen(s));
 
 		while (temp != '#' && temp != EOF && i < 19) {		//2: Trip date
@@ -514,7 +524,7 @@ void LoadBusFile(struct Bus* busList) {
 		//printf("%s\t", destination);
 		memset(s, 0, strlen(s));
 
-		while (temp != '#' && temp != EOF && i < 19) {	//5: Trip destrination
+		while (temp != '#' && temp != EOF && i < 19) {	//6: Ticket price
 			if (temp == '\n')
 				temp = fgetc(inputB);
 			s[i] = temp;
@@ -527,7 +537,7 @@ void LoadBusFile(struct Bus* busList) {
 		//printf("%d\t", ticketprice);
 		memset(s, 0, strlen(s));
 
-		while (temp != '\n' && temp != EOF && i < 19) {//4: max students
+		while (temp != '\n' && temp != EOF && i < 19) {	//7: Max capacity
 			s[i] = temp;
 			i++;
 			temp = fgetc(inputB);
@@ -539,12 +549,13 @@ void LoadBusFile(struct Bus* busList) {
 		//printf("%d\n", capacity);
 		memset(s, 0, strlen(s));
 
-		InsertBus(id, date, time, origin, destination, ticketprice, capacity, busList, FindLastB(busList));//inserting bus node into linked list
+		InsertBus(id, date, time, origin, destination, ticketprice, capacity, busList, FindLastB(busList)); //inserting bus node into linked list
 	}
-	InsertBus("No match\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 0, 0, busList, FindLastB(busList));//inserting bus node into linked list
-	fclose(inputB);
+	InsertBus("No match\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", "n/a\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 0, 0, busList, FindLastB(busList));	//inserting bus node for unmatched passengers into linked list
+	fclose(inputB);	// close busses.txt
 }
 
+// Load passengers from passengers.txt into passengerList
 void LoadPassengerFile(struct Passenger* passengerList) {
 	//reading from passenger file
 	//counting number of lines in file
@@ -571,7 +582,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 	}
 
 	char s[20];
-	memset(s, 0, sizeof(s));//resetting the string: solved the problem of printing strange symbols after reading
+	memset(s, 0, sizeof(s));//resetting the string
 	int i=0;
 	int c=0;
 	char temps=fgetc(inputs);
@@ -584,7 +595,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 	//reading from file
 	for (int j=0; j<lines2; j++) {
 		c=0;
-		while (temps != '#' && temps != EOF && i < 19) {//1: student name
+		while (temps != '#' && temps != EOF && i < 19) {	//1: student name
 			if (temps == '\n')
 				temps = fgetc(inputs);
 			s[i] = temps;
@@ -598,7 +609,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 		//printf("%s\t", id);
 		memset(s, 0, strlen(s));
 
-		while (temps != '#' && temps != EOF && i < 19) {//2: trip date
+		while (temps != '#' && temps != EOF && i < 19) {	//2: trip date
 			if (temps == '\n')
 				temps = fgetc(inputs);
 			s[i] = temps;
@@ -610,7 +621,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 		strncpy(date, s, 20);
 		memset(s, 0, strlen(s));
 
-		while (temps != '#' && temps != EOF && i < 19) {//3: trip time
+		while (temps != '#' && temps != EOF && i < 19) {	//3: trip time
 			if (temps == '\n')
 				temps = fgetc(inputs);
 			s[i] = temps;
@@ -622,7 +633,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 		strncpy(time, s, 20);
 		memset(s, 0, strlen(s));
 
-		while (temps != '#' && temps != EOF && i < 19) {//4: trip origin
+		while (temps != '#' && temps != EOF && i < 19) {	//4: trip origin
 			if (temps == '\n')
 				temps = fgetc(inputs);
 			s[i] = temps;
@@ -634,7 +645,7 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 		strncpy(origin, s, 20);
 		memset(s, 0, strlen(s));
 
-		do {//5: trip destinationn
+		do {												//5: trip destinationn
 			while (temps != '#' && temps!='\n' && temps != EOF && i < 19) {
 				s[i] = temps;
 				i++;
@@ -648,13 +659,14 @@ void LoadPassengerFile(struct Passenger* passengerList) {
 		c++;
 		}while(temps!='\n' && temps != EOF);
 
-			InsertPassenger(id, date, time, origin, destination, passengerList, FindLastP(passengerList));
+			InsertPassenger(id, date, time, origin, destination, passengerList, FindLastP(passengerList));	// Insert passenger into passengerList
 			memset(s, 0, strlen(s));
 
 	}
-	fclose(inputs);
+	fclose(inputs);		// Close passengers.txt
 }
 
+// Assign passengers in passengerList to buses in busList
 void AssignPassengers(struct Bus* busList, struct Passenger* passengerList) {
 	struct Passenger* currentPassenger = passengerList->next;
 	struct Bus* currentBus = busList->next;
@@ -665,30 +677,30 @@ void AssignPassengers(struct Bus* busList, struct Passenger* passengerList) {
 	int passengertime;
 	int bustime;
 	char delimitor[2] = ":";
-	while (currentPassenger != NULL) {
-		strncpy(time, currentPassenger->time, 19);
+	while (currentPassenger != NULL) {		//Iterating through passengerList
+		strncpy(time, currentPassenger->time, 19);	// Extracting trip time from passenger node
 		hour = atoi(strtok(time, delimitor));
 		minute = atoi(strtok(NULL, delimitor));
-		passengertime = minute + hour * 60;
+		passengertime = minute + hour * 60;			// Converting time string to integer in minutes
 		memset(time, 0, sizeof(time));
-		if ((currentBus = MatchBus(currentPassenger->date, currentPassenger->origin, currentPassenger->destination, busList)) != NULL) {
-			strncpy(time, currentBus->time, 19);
+		if ((currentBus = MatchBus(currentPassenger->date, currentPassenger->origin, currentPassenger->destination, busList)) != NULL) {	// trying to find bus matching current passenger date, origin, and destrination
+			strncpy(time, currentBus->time, 19);	// Extracing time from bus node
 			hour = atoi(strtok(time, delimitor));
 			minute = atoi(strtok(NULL, delimitor));
-			bustime = minute + hour * 60;
+			bustime = minute + hour * 60;			// Converting time strong to  integer in minutes
 			memset(time, 0, sizeof(time));
-			if (bustime >= passengertime && bustime <= (passengertime + 60) && currentBus->capacity != 0) {
+			if (bustime >= passengertime && bustime <= (passengertime + 60) && currentBus->capacity != 0) {		// If bus trip time is after passenger trip time by less than one hour, assigns passenger to bus
 				InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, currentBus->passengers, FindLastP(currentBus->passengers));
 				currentBus->capacity--;
 			}
-			else {
+			else {		// If no match found, add passenger to no match node
 				InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, FindLastB(busList)->passengers, FindLastP(FindLastB(busList)->passengers));
 			}
 		}
-		else {
+		else {			// If no match found, add passenger to no match node
 			InsertPassenger(currentPassenger->pid, currentPassenger->date, currentPassenger->time, currentPassenger->origin, currentPassenger->destination, FindLastB(busList)->passengers, FindLastP(FindLastB(busList)->passengers));
 		}
-		currentPassenger = currentPassenger->next;
+		currentPassenger = currentPassenger->next;	// iterate current passenger
 
 	}
 }
