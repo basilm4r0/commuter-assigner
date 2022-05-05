@@ -17,7 +17,7 @@ void DeleteListP(struct Passenger* L){
 	struct Passenger* temp;
 	P = L;
 	if (P == NULL) {
-		printf("List does not exist!\n");
+		//printf("List does not exist!\n");
 		return;
 	}
 	while(P != NULL){
@@ -95,11 +95,11 @@ void InsertPassenger(char pid[20], char date[20], char time[20], char origin[20]
 void PrintPassengers(struct Passenger* L) {
 	struct Passenger* P = L;
 	if (IsEmptyP(L))
-		printf("List is empty!\n");
+		printf("\tList is empty!\n");
 	else
 		do{
 			P=P->next;
-			printf("Passenger ID: %s, Trip Date: %s, Trip Time: %s, Origin: %s, Destination: %s\n", P->pid, P->date, P->time, P->origin, P->destination);
+			printf("\tPassenger ID: %s, Trip Date: %s, Trip Time: %s, Origin: %s, Destination: %s\n", P->pid, P->date, P->time, P->origin, P->destination);
 		} while (!IsLastP(L, P));
 }
 
@@ -146,7 +146,7 @@ void DeleteListB(struct Bus* L){
 	struct Bus* temp;
 	P = L;
 	if (P == NULL) {
-		printf("List does not exist!\n");
+		//printf("List does not exist!\n");
 		return;
 	}
 	while(P != NULL){
@@ -174,7 +174,7 @@ void DeleteBus(struct Bus* L, struct Bus* P){
 struct Bus* MakeEmptyB(struct Bus* L) {
 
 	if (L != NULL)
-		MakeEmptyB(L);
+		DeleteListB(L);
 
 	L = (struct Bus*) malloc(sizeof(struct Bus));
 
@@ -184,6 +184,7 @@ struct Bus* MakeEmptyB(struct Bus* L) {
 	}
 
 	L->next = NULL;
+	L->passengers = NULL;
 	return L;
 
 }
@@ -287,7 +288,7 @@ void ResetBusListPassengers(struct Bus* L) {
 	struct Bus* P;
 	P = L;
 	while(P != NULL){
-		MakeEmptyP(P->passengers);
+		P->passengers = MakeEmptyP(P->passengers);
 		P = P->next;
 	}
 	return;
@@ -334,6 +335,7 @@ int main() {
 				if (busesloaded == 1 && passengersloaded == 1) {
 					AssignPassengers(busList, passengerList);
 					passengersassigned = 1;
+					printf("\n");
 					PrintBusesPassengers(busList);
 				}
 				else if (busesloaded != 1 && passengersloaded == 1)
@@ -369,7 +371,9 @@ int main() {
 				scanf("%19s", destination);
 				InsertPassenger(id, date, time, origin, destination, passengerList, passengerList);
 				passengersassigned = 0;
-				ResetBusListPassengers(busList);
+				//ResetBusListPassengers(busList);
+				busList = MakeEmptyB(busList);
+				LoadBusFile(busList);
 				break;
 
 			case (7):
@@ -377,15 +381,19 @@ int main() {
 				scanf("%19s", id);
 				DeletePassenger(passengerList, FindPassenger(id, passengerList));
 				passengersassigned = 0;
-				ResetBusListPassengers(busList);
+				//ResetBusListPassengers(busList);
+				busList = MakeEmptyB(busList);
+				LoadBusFile(busList);
 				break;
 
 			case (8):
 				printf("Enter the ID of the bus to be deleted: ");
 				scanf("%19s", id);
-				DeleteBus(busList, FindBus(id, busList));
 				passengersassigned = 0;
-				ResetBusListPassengers(busList);
+				//ResetBusListPassengers(busList);
+				busList = MakeEmptyB(busList);
+				LoadBusFile(busList);
+				DeleteBus(busList, FindBus(id, busList));
 				break;
 
 			case (9):
