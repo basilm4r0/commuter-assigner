@@ -1,4 +1,4 @@
-// COMP2421 Project 1 by Basil Mari.	Student ID: 1191027.	Date: 5/5/2022
+// COMP2421 Project 1 by Basil Mari		Student ID: 1191027		Date: 5/5/2022		Section: 4
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
