@@ -308,6 +308,22 @@ struct Bus* MatchBus(char date[20], char origin[20], char destination[20], struc
 	return P;
 }
 
+//Reset passengers for bus linked list with head L
+void ResetB(struct Bus* L){
+	struct Bus* P;
+	struct Bus* temp;
+	P = L;
+	if (P == NULL) {
+		//printf("List does not exist!\n");
+		return;
+	}
+	while(P != NULL){
+		temp = P->next;
+		DeleteListP(P->passengers);
+		P = temp;
+	}
+}
+
 void LoadBusFile(struct Bus*);	//Loads informatino in busses.txt into a bus linked list "busList"
 void LoadPassengerFile(struct Passenger*);	//Loads informatino in passengers.txt into passengers linked list "passengerList"
 void AssignPassengers(struct Bus*, struct Passenger*);	//Assigned passengers in passengerList to buses in busList
