@@ -434,6 +434,7 @@ int main() {
 
 	DeleteListP(passengerList);		// Free passenger linked list
 	DeleteListB(busList);			// Free bus linked list
+	return 0;
 }
 
 // Load buses from busses.txt into busList
