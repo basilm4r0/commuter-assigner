@@ -3,8 +3,14 @@
 A system to assign commuters to buses optimally. This project reads commuter and bus information from text files and assigns commuters to buses through a terminal interface. The program is implemented through a linked list of linked lists representing each bus and its passenger.
 
 ## Usage:
-  1. Create an input file named "busses.txt" in the program directory with each line in the format: ``` bus-number#departure-date#hour:minute#origin#destination#ticket-price#passenger-capacity```
-  2. Create an input file named "passengers.txt" in the program directory with each line in the format: ``` student-number#departure-date#hour:minute#origin#destination```
+  1. Create an input file named "busses.txt" in the program directory with each line in the format:
+  ```
+  bus-number#departure-date#hour:minute#origin#destination#ticket-price#passenger-capacity
+  ```
+  2. Create an input file named "passengers.txt" in the program directory with each line in the format:
+  ```
+  passenger-number#departure-date#hour:minute#origin#destination
+  ```
   3. Compile the program using ```make```
   4. Run the executable.
   
